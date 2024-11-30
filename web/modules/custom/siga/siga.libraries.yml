@@ -1,0 +1,8 @@
+siga_script:
+  version: 1.0
+  js:
+    js/siga_script.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings

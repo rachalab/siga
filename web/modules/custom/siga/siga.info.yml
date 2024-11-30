@@ -1,0 +1,7 @@
+name: 'SIGA'
+type: module
+description: 'Módulo personalizado para modificar formularios e inyectar JS.'
+core_version_requirement: ^10
+package: Custom
+
+

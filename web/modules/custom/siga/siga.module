@@ -1,0 +1,13 @@
+<?php 
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+
+/**
+ * Implementa hook_form_alter().
+ */
+function siga_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+   
+
+
+}

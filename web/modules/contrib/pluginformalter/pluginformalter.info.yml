@@ -1,0 +1,10 @@
+name: Plugin Form Alter
+type: module
+description: Provides an annotation Plugin to be used as replacement of hook_form_alter().
+core_version_requirement: ^8 || ^9 || ^10
+package: Development
+
+# Information added by Drupal.org packaging script on 2024-03-08
+version: '8.x-1.7'
+project: 'pluginformalter'
+datestamp: 1709894190

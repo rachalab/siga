@@ -1,0 +1,12 @@
+services:
+  plugin.manager.form_alter:
+    class: Drupal\pluginformalter\Plugin\FormAlterManager
+    parent: default_plugin_manager
+
+  plugin.manager.form_alter.paragraphs:
+    class: Drupal\pluginformalter\Plugin\ParagraphsFormAlterManager
+    parent: default_plugin_manager
+
+  plugin.manager.form_alter.ief:
+    class: Drupal\pluginformalter\Plugin\InlineEntityFormAlterManager
+    parent: default_plugin_manager
