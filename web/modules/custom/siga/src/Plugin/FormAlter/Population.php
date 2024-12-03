@@ -49,17 +49,21 @@ $ages = [
   'total' => 'Total'
 ];
   foreach ($groups as $prefix => $label) {
-      
+
       $row = [];
       //$row[] = $label;
+      $row['#attributes'] = [
+        'class' => ["tr-{$prefix}", "tr-population"]
+      ];
+
       $row[] = ['#markup' => '<p>'.$label.'</p>'];
 
       foreach($ages as $prefix_age => $label_age)
       {
-        
+
         $form['subform']["field_{$prefix}_{$prefix_age}"]['widget'][0]['value']['#title'] = '';
         $form['subform']["field_{$prefix}_{$prefix_age}"]['widget'][0]['value']['#size'] = 6;
-        
+
         $row[] = ["field_{$prefix}_{$prefix_age}" => $form['subform']["field_{$prefix}_{$prefix_age}"]];
 
         unset($form['subform']["field_{$prefix}_{$prefix_age}"]);
@@ -67,7 +71,7 @@ $ages = [
 
       }
 
-      
+
 
 
 
