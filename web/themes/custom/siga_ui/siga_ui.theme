@@ -1,0 +1,48 @@
+<?php 
+use Drupal\workflow\Entity\Workflow;
+
+function siga_ui_theme_suggestions_views_view_fields_alter(array &$suggestions, array $variables) {
+  // Obtén la vista y el display.
+  $view = $variables['view'];
+  $display_id = $view->current_display;
+  $suggestions[] = 'views_view_fields__' . $view->id() . '__' . $display_id;
+}
+
+function siga_ui_preprocess_views_view_field(&$variables) {
+  if ($variables['view']->id() == 'activities' && $variables['field']->field == 'field_dates') {
+    // Asegúrate de que el campo tenga un rango válido.
+    $date_range = $variables['row']->_entity->get('field_dates')->getValue();
+
+    if (!empty($date_range[0]['value'])) {
+      $variables['start_date'] = new \DateTime($date_range[0]['value']);
+    }
+
+    if (!empty($date_range[0]['end_value'])) {
+      $variables['end_date'] = new \DateTime($date_range[0]['end_value']);
+    }
+  }
+}
+
+
+/**
+ * Preprocesa la vista para agregar los estados del workflow "activity".
+ */
+function siga_ui_preprocess_views_view_kanban(&$variables) {
+  // Verifica que sea la vista correcta, ajusta 'your_view_id' si es necesario.
+  if ($variables['view']->id() === 'activities') {
+    // Carga el flujo de trabajo "activity".
+    $workflow = Workflow::load('activity'); // Tipo de workflow: activity.
+    if ($workflow) {
+      $states = $workflow->getStates();
+
+      // Genera un array asociativo con los estados.
+      $state_labels = [];
+      foreach ($states as $key => $state) {
+        $state_labels[$key] = $state->label();
+      }
+
+      // Pasa el array al template Twig.
+      $variables['workflow_states'] = $state_labels;
+    }
+  }
+}

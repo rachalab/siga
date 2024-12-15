@@ -1,0 +1,92 @@
+{#
+/**
+ * @file
+ * Theme override for a main view template using Calendar View style.
+ *
+ * @see template_preprocess_views_view()
+ */
+#}
+{%
+  set classes = [
+    'view',
+    'view-id-' ~ id|clean_class,
+    'view-display-id-' ~ display_id|clean_class,
+    dom_id ? 'js-view-dom-id-' ~ dom_id,
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {% if title %}
+    {{ title }}
+  {% endif %}
+  {{ title_suffix }}
+  
+  {% if exposed %}
+    <div class="view-filters">
+      {{ exposed }}
+    </div>
+  {% endif %}
+  <div class="header-actions">
+ {% if header %}
+    <header>
+      {{ header }}
+        <div class="dropdown">
+            <!-- Botón del dropdown -->
+            <button class="dropdown-toggle">
+            <!-- Icono -->
+            <span class="icon">📅</span>
+            <span class="display-name">...</span>
+            <!-- Flecha -->
+            <span class="arrow">▼</span>
+            </button>
+
+            <!-- Menú desplegable -->
+            <ul class="dropdown-menu">
+            <!-- Los enlaces se añadirán aquí dinámicamente -->
+            </ul>
+        </div>
+    </header>
+   
+  {% endif %}
+    {{ feed_icons }}
+ </div>
+  {% if attachment_before %}
+    <div class="attachment attachment-before">
+      {{ attachment_before }}
+    </div>
+  {% endif %}  </div>
+
+  {# Navigation at the top by default #}
+  {% if pager %}
+    {{ pager }}
+  {% endif %}
+
+  {% if rows %}
+    <div class="view-content">
+      {{ rows }}
+    </div>
+  {% elseif empty %}
+    <div class="view-empty">
+      {{ empty }}
+    </div>
+  {% endif %}
+
+  {% if attachment_after %}
+    <div class="attachment attachment-after">
+      {{ attachment_after }}
+    </div>
+  {% endif %}
+  {% if more %}
+    {{ more }}
+  {% endif %}
+  {% if footer %}
+    <div class="view-footer">
+      {{ footer }}
+    </div>
+  {% endif %}
+  {% if feed_icons %}
+    <div class="feed-icons">
+      {{ feed_icons }}
+    </div>
+  {% endif %}
+</div>

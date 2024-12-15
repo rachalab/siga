@@ -1,0 +1,24 @@
+<div id="siga-navbar">
+    <div class="siga-container">
+        <div class="siga-logo">
+           <a href="{{ path('<front>') }}"><img src="{{ base_path ~ directory }}/assets/img/siga.png" alt="CREAS / SIGA">
+         </a>
+        </div>
+    
+        <div class="siga-nav">
+        {{ page.primary_menu }}
+        </div>
+
+        <div class="siga-menu">
+            <div class="siga-header__user">
+                <span>{{ user.displayname }} </span>
+                <button class="siga-header__dropdown-toggle">▼</button>
+            </div>
+            <ul class="siga-header__dropdown" style="display: none">
+                <li><a href="{{ path('user.page') }}">Mi perfil</a></li>
+                <li><a href="{{ path('user.logout') }}">Cerrar sesión</a></li>
+            </ul>
+        </div>
+    </div>
+
+</div>

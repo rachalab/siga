@@ -1,0 +1,8 @@
+name: Siga UI
+type: theme
+base theme: gin
+description: 'Subtheme basado en Gin.'
+core_version_requirement: ^10 || ^11
+libraries:
+  - siga_ui/global-styling
+  - siga_ui/dropdown

@@ -1,0 +1,43 @@
+<div class="population-table">
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Niños/Adolescentes</th>
+        <th>Jóvenes</th>
+        <th>Adultos</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Mujeres</td>
+        <td>{{ paragraph.field_women_kids.value }}</td>
+        <td>{{ paragraph.field_women_young.value }}</td>
+        <td>{{ paragraph.field_women_adult.value }}</td>
+        <td>{{ paragraph.field_women_total.value }}</td>
+      </tr>
+      <tr>
+        <td>Varones</td>
+        <td>{{ paragraph.field_men_kids.value }}</td>
+        <td>{{ paragraph.field_men_young.value }}</td>
+        <td>{{ paragraph.field_men_adult.value }}</td>
+        <td>{{ paragraph.field_men_total.value }}</td>
+      </tr>
+      <tr>
+        <td>Otros géneros</td>
+        <td>{{ paragraph.field_other_kids.value }}</td>
+        <td>{{ paragraph.field_other_young.value }}</td>
+        <td>{{ paragraph.field_other_adult.value }}</td>
+        <td>{{ paragraph.field_other_total.value }}</td>
+      </tr>
+      <tr class="total-row">
+        <td>Total</td>
+        <td>{{ paragraph.field_total_kids.value }}</td>
+        <td>{{ paragraph.field_total_young.value }}</td>
+        <td>{{ paragraph.field_total_adult.value }}</td>
+        <td>{{ paragraph.field_total_total.value }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

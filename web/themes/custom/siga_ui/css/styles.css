@@ -1,0 +1,468 @@
+@charset "UTF-8";
+/* STICKY */
+.region-sticky__items__inner {
+  justify-content: flex-end;
+}
+
+/* HEADER */
+#siga-navbar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: #fff;
+  height: 50px;
+  z-index: 10000;
+  box-shadow: 1px 4px 8px -1px rgba(173, 173, 173, 0.66);
+  -webkit-box-shadow: 1px 4px 8px -1px rgba(173, 173, 173, 0.66);
+  -moz-box-shadow: 1px 4px 8px -1px rgba(173, 173, 173, 0.66);
+}
+#siga-navbar .siga-container {
+  display: flex;
+  flex-direction: row;
+  margin: auto 3rem;
+  width: auto;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+#siga-navbar .siga-logo a {
+  display: block;
+  width: 140px;
+}
+#siga-navbar .siga-logo img {
+  width: 100%;
+  height: auto;
+}
+#siga-navbar .siga-nav ul {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+#siga-navbar .siga-nav ul li {
+  list-style: none;
+}
+
+#gin-toolbar-bar {
+  display: none;
+}
+
+/* CARD */
+.activity-card {
+  display: flex;
+}
+.activity-card.list-card {
+  justify-content: space-between;
+  align-items: stretch;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0 auto 30px auto;
+  width: auto;
+  gap: 16px;
+}
+.activity-card.kanban-card {
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  gap: 16px;
+}
+.activity-card.calendar-card {
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  gap: 16px;
+}
+.activity-card .form-item {
+  margin: 0 !important;
+}
+.activity-card .left-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.activity-card .left-section .initiative {
+  background-color: #f0e9f8;
+  color: #6a4c93;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  padding: 4px 8px;
+  border-radius: 4px;
+  width: auto;
+}
+.activity-card .left-section .date {
+  background-color: #ececec;
+  text-align: center;
+  color: #333;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+.activity-card .left-section .date span {
+  display: block;
+}
+.activity-card .left-section .date .month {
+  font-size: 14px;
+  font-weight: bold;
+}
+.activity-card .left-section .date .day {
+  font-size: 32px;
+  font-weight: bold;
+}
+.activity-card .left-section .date .year {
+  font-size: 14px;
+}
+.activity-card .content {
+  flex: 1;
+}
+.activity-card .content .breadcrumb {
+  font-size: 14px;
+  color: #888;
+}
+.activity-card .content .title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 8px 0;
+}
+.activity-card .content .description {
+  font-size: 14px;
+  color: #666;
+}
+.activity-card .content .organization {
+  font-size: 14px;
+  color: #333;
+  margin-top: 8px;
+}
+.activity-card .status {
+  background-color: #ffd700;
+  color: #000;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 100px;
+  display: inline-block;
+  text-align: center !important;
+}
+.activity-card .person {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 14px;
+  color: #333;
+}
+.activity-card .person .avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 8px;
+}
+.activity-card .right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: right;
+}
+.activity-card .right .info {
+  color: red;
+  font-size: 12px;
+}
+
+/* MONITOREO: ACTIVIDADES / KANBAN */
+.views-view-kaban {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-x: scroll;
+}
+.views-view-kaban .row {
+  width: 2400px;
+}
+.views-view-kaban .layout-column .card {
+  border: none !important;
+  border-radius: 0;
+}
+.views-view-kaban .layout-column details {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px !important;
+  padding: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.views-view-kaban .layout-column .card-footer {
+  display: none !important;
+}
+.views-view-kaban .card__content-wrapper {
+  border: none;
+  background-color: transparent !important;
+}
+
+/* MONITOREO ACTIVIDADES: CALENDAR */
+.view-calendar .gin-table-scroll-wrapper {
+  background: transparent !important;
+  border-radius: 10px !important;
+}
+.view-calendar .gin-layer-wrapper {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+.view-calendar .calendar-view-day__row {
+  border-color: #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ACTIVIDADES: DROPDOWN */
+/* Contenedor del dropdown */
+.dropdown {
+  position: relative;
+  width: 200px; /* Ancho fijo */
+}
+.dropdown button {
+  display: inline-block;
+  border: 1px solid #000; /* Borde negro */
+  border-radius: 8px; /* Bordes redondeados */
+  background-color: #f9f9f9; /* Fondo claro */
+  padding: 8px 16px;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Espacio entre icono, texto y flecha */
+  width: 100%; /* Ancho fijo */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+/* Icono a la izquierda */
+.dropdown .icon {
+  margin-right: 8px;
+  display: inline-block;
+  font-size: 20px; /* Tamaño del icono */
+}
+
+/* Flecha hacia abajo a la derecha */
+.dropdown .arrow {
+  margin-left: auto;
+  display: inline-block;
+  font-size: 16px;
+  transform: rotate(0deg); /* Rotación inicial */
+  transition: transform 0.2s; /* Transición suave */
+}
+
+/* Dropdown activo: gira la flecha */
+.dropdown.active .arrow {
+  transform: rotate(180deg);
+}
+
+/* Estilo del menú desplegable */
+.dropdown-menu {
+  display: none; /* Oculto por defecto */
+  position: absolute;
+  top: calc(100% + 8px); /* Justo debajo del botón */
+  left: 0;
+  width: 100%; /* Igual ancho que el botón */
+  background-color: #fff;
+  border: 1px solid #000; /* Borde negro */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  z-index: 1000;
+  margin: 0 !important;
+}
+
+/* Estilo de los elementos del menú */
+.dropdown-menu li {
+  list-style: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+
+.dropdown-menu li a {
+  padding: 12px 16px;
+  display: block;
+  border-radius: 8px;
+}
+
+/* Efecto hover en los elementos */
+.dropdown-menu li a:hover {
+  background-color: #f0f0f0; /* Fondo claro al pasar el cursor */
+}
+
+/* Mostrar menú cuando el dropdown está activo */
+.dropdown.active .dropdown-menu {
+  display: block;
+}
+
+.header-actions {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ACTIVIDAD: NODO */
+.activity-node {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.activity-node .activity-header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: stretch;
+  width: 100%;
+  gap: 16px;
+}
+.activity-node .activity-header .left-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.activity-node .activity-header .left-section .initiative {
+  background-color: #f0e9f8;
+  color: #6a4c93;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  padding: 4px 8px;
+  border-radius: 4px;
+  width: auto;
+}
+.activity-node .activity-header .left-section .date {
+  background-color: #ececec;
+  text-align: center;
+  color: #333;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+.activity-node .activity-header .left-section .date span {
+  display: block;
+}
+.activity-node .activity-header .left-section .date .month {
+  font-size: 14px;
+  font-weight: bold;
+}
+.activity-node .activity-header .left-section .date .day {
+  font-size: 32px;
+  font-weight: bold;
+}
+.activity-node .activity-header .left-section .date .year {
+  font-size: 14px;
+}
+.activity-node .activity-header .content {
+  flex: 1;
+}
+.activity-node .activity-header .content .breadcrumb {
+  font-size: 14px;
+  color: #888;
+}
+.activity-node .activity-header .content .title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 8px 0;
+}
+.activity-node .activity-header .content .description {
+  font-size: 14px;
+  color: #666;
+}
+.activity-node .activity-header .content .organization {
+  font-size: 14px;
+  color: #333;
+  margin-top: 8px;
+}
+.activity-node .activity-header .status {
+  background-color: #ffd700;
+  color: #000;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 100px;
+  display: inline-block;
+  text-align: center !important;
+}
+.activity-node .activity-header .person {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 14px;
+  color: #333;
+}
+.activity-node .activity-header .person .avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 8px;
+}
+.activity-node .activity-header .right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: right;
+}
+.activity-node .activity-header .right .info {
+  color: red;
+  font-size: 12px;
+}
+.activity-node section.activity-details > div, .activity-node section.activity-report > div, .activity-node section.activity-population > div {
+  display: flex;
+  gap: 32px;
+  border-top: 1px solid #ccc;
+  padding: 24px 0 24px 0;
+  margin-top: 24px;
+}
+.activity-node section.activity-details > div h2, .activity-node section.activity-report > div h2, .activity-node section.activity-population > div h2 {
+  width: 40%;
+  font-size: 18px;
+  font-weight: bold;
+}
+.activity-node section.activity-details > div .activity-value, .activity-node section.activity-report > div .activity-value, .activity-node section.activity-population > div .activity-value {
+  width: 60%;
+}
+
+/* PARAGRAPH: POBLACIÓN META */
+.population-table table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+.population-table table thead {
+  background-color: #f5f5f5;
+}
+.population-table table thead th {
+  padding: 10px;
+  font-weight: bold;
+  border: 1px solid #ddd;
+}
+.population-table table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.population-table table tbody tr td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+.population-table table tbody tr.total-row {
+  font-weight: bold;
+  background-color: #e0e0e0;
+}

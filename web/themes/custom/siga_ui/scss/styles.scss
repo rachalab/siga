@@ -1,0 +1,602 @@
+
+$background-body: #f5f5f5;
+$background-card: white;
+$border-color: #ddd;
+$shadow-color: rgba(0, 0, 0, 0.1);
+$color-text-main: #333;
+$color-text-muted: #666;
+$color-text-light: #888;
+$color-initiative-bg: #f0e9f8;
+$color-initiative-text: #6a4c93;
+$color-date-bg: #ececec;
+$color-status-bg: #ffd700;
+$color-status-text: #000;
+$color-person-bg: #ccc;
+$color-info: red;
+
+/* STICKY */
+
+.region-sticky__items__inner
+{
+    justify-content: flex-end;
+}
+
+
+/* HEADER */
+
+#siga-navbar
+{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: #fff;
+    height: 50px;
+    z-index: 10000;
+    box-shadow: 1px 4px 8px -1px rgba(173,173,173,0.66);
+    -webkit-box-shadow: 1px 4px 8px -1px rgba(173,173,173,0.66);
+    -moz-box-shadow: 1px 4px 8px -1px rgba(173,173,173,0.66);
+    
+    .siga-container
+    {
+        display: flex;
+        flex-direction: row;
+        margin: auto 3rem;
+        width: auto;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+    }
+
+
+    .siga-logo
+    {
+        a{ 
+            display: block; 
+            width: 140px;
+        }
+        img{
+            width: 100%;
+            height: auto;
+        }
+    }
+    .siga-nav
+    {
+       
+        ul{
+            display: flex;
+            flex-direction: row;
+            gap: 16px;
+            li{
+                list-style: none;
+            }
+        }
+    }
+   
+    
+}
+
+#gin-toolbar-bar
+{
+ display:  none;
+}
+
+
+/* CARD */
+
+
+
+.activity-card {
+
+  display: flex;
+  
+
+  &.list-card
+  {
+    justify-content: space-between;
+    align-items: stretch;
+    background-color: $background-card;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 4px $shadow-color;
+    margin: 0 auto 30px auto ;
+    width: auto;
+    gap: 16px;
+  }
+
+  &.kanban-card
+  {
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 16px;
+  }
+  &.calendar-card
+  {
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 16px;
+  }
+
+  .form-item{
+    margin: 0 !important;
+  }
+  .left-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    .initiative {
+      background-color: $color-initiative-bg;
+      color: $color-initiative-text;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+      padding: 4px 8px;
+      border-radius: 4px;
+      width: auto;
+    }
+
+    .date {
+      background-color: $color-date-bg;
+      text-align: center;
+      color: $color-text-main;
+      padding: 8px 16px;
+      border-radius: 4px;
+
+      span {
+        display: block;
+      }
+
+      .month {
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .day {
+        font-size: 32px;
+        font-weight: bold;
+      }
+
+      .year {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .content {
+    flex: 1;
+
+    .breadcrumb {
+      font-size: 14px;
+      color: $color-text-light;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 8px 0;
+    }
+
+    .description {
+      font-size: 14px;
+      color: $color-text-muted;
+    }
+
+    .organization {
+      font-size: 14px;
+      color: $color-text-main;
+      margin-top: 8px;
+    }
+  }
+
+  .status {
+    background-color: $color-status-bg;
+    color: $color-status-text;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 100px;
+    display: inline-block;
+    text-align: center !important;
+  }
+
+  .person {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 14px;
+    color: $color-text-main;
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: $color-person-bg;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 8px;
+    }
+  }
+
+  .right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: right;
+
+    
+
+    .info {
+      color: $color-info;
+      font-size: 12px;
+    }
+  }
+}
+
+
+/* MONITOREO: ACTIVIDADES / KANBAN */
+
+.views-view-kaban 
+{
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-x: scroll;
+
+    .row
+    {
+        width: 2400px;
+    }
+
+    .layout-column 
+    {
+        .card{
+            border: none !important;
+            border-radius: 0;
+        }
+        details
+        {
+            background-color: $background-card;
+            border: 1px solid $border-color;
+            border-radius: 8px !important;
+            padding: 0;
+            box-shadow: 0 2px 4px $shadow-color;
+        }
+        .card-footer
+        {
+            display: none !important;
+        }
+    }
+    .card__content-wrapper
+    {
+        border: none;
+        background-color: transparent !important;
+    }
+
+}
+
+
+/* MONITOREO ACTIVIDADES: CALENDAR */
+
+.view-calendar
+{
+    .gin-table-scroll-wrapper
+    {
+        background: transparent !important;
+        border-radius: 10px !important;
+    }
+    .gin-layer-wrapper{
+        border: none !important;
+        box-shadow: none !important;
+        background: transparent !important;
+        padding: 0 !important;
+    }
+    .calendar-view-day__row
+    {
+        border-color: $border-color;
+        box-shadow: 0 2px 4px $shadow-color;
+    }
+}
+
+
+/* ACTIVIDADES: DROPDOWN */
+
+/* Contenedor del dropdown */
+.dropdown {
+    position: relative;
+    width: 200px; /* Ancho fijo */
+    button{
+        display: inline-block;
+        border: 1px solid #000; /* Borde negro */
+        border-radius: 8px; /* Bordes redondeados */
+        background-color: #f9f9f9; /* Fondo claro */
+        padding: 8px 16px;
+        cursor: pointer;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Espacio entre icono, texto y flecha */
+        width: 100%; /* Ancho fijo */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+
+    }
+  }
+  
+  /* Icono a la izquierda */
+  .dropdown .icon {
+    margin-right: 8px;
+    display: inline-block;
+    font-size: 20px; /* Tamaño del icono */
+  }
+  
+  /* Flecha hacia abajo a la derecha */
+  .dropdown .arrow {
+    margin-left: auto;
+    display: inline-block;
+    font-size: 16px;
+    transform: rotate(0deg); /* Rotación inicial */
+    transition: transform 0.2s; /* Transición suave */
+  }
+  
+  /* Dropdown activo: gira la flecha */
+  .dropdown.active .arrow {
+    transform: rotate(180deg);
+  }
+  
+  /* Estilo del menú desplegable */
+  .dropdown-menu {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    top: calc(100% + 8px); /* Justo debajo del botón */
+    left: 0;
+    width: 100%; /* Igual ancho que el botón */
+    background-color: #fff;
+    border: 1px solid #000; /* Borde negro */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    z-index: 1000;
+    margin: 0 !important;
+    
+  }
+  
+  /* Estilo de los elementos del menú */
+  .dropdown-menu li {
+    list-style: none;
+    padding: 0;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .dropdown-menu li a{
+    padding: 12px 16px;
+    display: block;
+    border-radius: 8px;
+  }
+  /* Efecto hover en los elementos */
+  .dropdown-menu li a:hover {
+    background-color: #f0f0f0; /* Fondo claro al pasar el cursor */
+  }
+  
+  /* Mostrar menú cuando el dropdown está activo */
+  .dropdown.active .dropdown-menu {
+    display: block;
+  }
+  
+  .header-actions
+  {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 16px;
+  }
+
+
+/* ACTIVIDAD: NODO */
+
+.activity-node {
+  background-color: $background-card;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px $shadow-color;
+
+  .activity-header {
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: stretch;
+    width: 100%;
+    gap: 16px;
+  
+  
+    .left-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+  
+      .initiative {
+        background-color: $color-initiative-bg;
+        color: $color-initiative-text;
+        font-size: 12px;
+        font-weight: bold;
+        text-align: center;
+        padding: 4px 8px;
+        border-radius: 4px;
+        width: auto;
+      }
+  
+      .date {
+        background-color: $color-date-bg;
+        text-align: center;
+        color: $color-text-main;
+        padding: 8px 16px;
+        border-radius: 4px;
+  
+        span {
+          display: block;
+        }
+  
+        .month {
+          font-size: 14px;
+          font-weight: bold;
+        }
+  
+        .day {
+          font-size: 32px;
+          font-weight: bold;
+        }
+  
+        .year {
+          font-size: 14px;
+        }
+      }
+    }
+  
+    .content {
+      flex: 1;
+  
+      .breadcrumb {
+        font-size: 14px;
+        color: $color-text-light;
+      }
+  
+      .title {
+        font-size: 18px;
+        font-weight: bold;
+        margin: 8px 0;
+      }
+  
+      .description {
+        font-size: 14px;
+        color: $color-text-muted;
+      }
+  
+      .organization {
+        font-size: 14px;
+        color: $color-text-main;
+        margin-top: 8px;
+      }
+    }
+  
+    .status {
+      background-color: $color-status-bg;
+      color: $color-status-text;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 4px 8px;
+      border-radius: 100px;
+      display: inline-block;
+      text-align: center !important;
+    }
+  
+    .person {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      font-size: 14px;
+      color: $color-text-main;
+  
+      .avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: $color-person-bg;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin-right: 8px;
+      }
+    }
+  
+    .right {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: right;
+  
+      
+  
+      .info {
+        color: $color-info;
+        font-size: 12px;
+      }
+    }
+  }
+  section.activity-details ,section.activity-report ,section.activity-population
+  {
+
+    & > div {
+        display: flex;
+        gap: 32px;
+        border-top: 1px solid #ccc;
+        padding: 24px 0 24px 0;
+        margin-top: 24px;
+
+        h2{
+          width: 40%;
+          font-size: 18px;
+          font-weight: bold;
+        }
+        .activity-value
+        {
+          width: 60%;
+        }
+
+    }
+  }
+  
+}
+
+
+/* PARAGRAPH: POBLACIÓN META */
+
+.population-table {
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    font-family: Arial, sans-serif;
+
+    thead {
+      background-color: #f5f5f5;
+
+      th {
+        padding: 10px;
+        font-weight: bold;
+        border: 1px solid #ddd;
+      }
+    }
+
+    tbody {
+      tr {
+        &:nth-child(even) {
+          background-color: #f9f9f9;
+        }
+
+        td {
+          padding: 10px;
+          border: 1px solid #ddd;
+        }
+
+        &.total-row {
+          font-weight: bold;
+          background-color: #e0e0e0;
+        }
+      }
+    }
+  }
+}

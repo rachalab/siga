@@ -1,0 +1,26 @@
+<header class="siga-header">
+  <div class="siga-header__container">
+    <div class="siga-header__logo">
+      <a href="{{ path('<front>') }}">Mi Logo</a>
+    </div>
+
+    <nav class="siga-header__nav">
+      <ul class="siga-header__menu">
+        <li><a href="{{ path('entity.node.collection') }}">Contenido</a></li>
+        <li><a href="{{ path('admin.content') }}">Gestión</a></li>
+        <li><a href="{{ path('user.page') }}">Perfil</a></li>
+      </ul>
+    </nav>
+
+    <div class="siga-header__user-menu">
+      <div class="siga-header__user">
+        <span>{{ user.display_name }}</span>
+        <button class="siga-header__dropdown-toggle">▼</button>
+      </div>
+      <ul class="siga-header__dropdown">
+        <li><a href="{{ path('user.page') }}">Mi perfil</a></li>
+        <li><a href="{{ path('user.logout') }}">Cerrar sesión</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
