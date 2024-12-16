@@ -9,7 +9,7 @@ use Drupal\pluginformalter\Plugin\FormAlterBase;
  * Class Population.
  *
  * @ParagraphsFormAlter(
- *   id = "siga_paragraphs_form_alter",
+ *   id = "siga_paragraphs_population_form_alter",
  *   label = @Translation("Altering title_text paragraphs form."),
  *   paragraph_type = {
  *    "population"
@@ -25,6 +25,8 @@ class Population extends FormAlterBase {
    */
   public function formAlter(array &$form, FormStateInterface $form_state, $form_id) {
 
+
+    
 
     // Add some dummy markup.
     $form['subform']['custom_fields_table'] = [
@@ -49,17 +51,21 @@ $ages = [
   'total' => 'Total'
 ];
   foreach ($groups as $prefix => $label) {
-      
+
       $row = [];
       //$row[] = $label;
+      $row['#attributes'] = [
+        'class' => ["tr-{$prefix}", "tr-population"]
+      ];
+
       $row[] = ['#markup' => '<p>'.$label.'</p>'];
 
       foreach($ages as $prefix_age => $label_age)
       {
-        
+
         $form['subform']["field_{$prefix}_{$prefix_age}"]['widget'][0]['value']['#title'] = '';
         $form['subform']["field_{$prefix}_{$prefix_age}"]['widget'][0]['value']['#size'] = 6;
-        
+
         $row[] = ["field_{$prefix}_{$prefix_age}" => $form['subform']["field_{$prefix}_{$prefix_age}"]];
 
         unset($form['subform']["field_{$prefix}_{$prefix_age}"]);
@@ -67,11 +73,14 @@ $ages = [
 
       }
 
-      
+
 
 
 
       $form['subform']['custom_fields_table'][] = $row;
+
+
+
 
   }
 
@@ -84,10 +93,11 @@ $ages = [
       }
   }
 
-   // $form['subform']['field_men_adult']['widget'][0]['value']['#title'] ="ADULTITOS";
-    $form['#attached']['library'][] = 'siga/siga_script';
+    $form['#attached']['library'][] = 'siga/population';
+
 
   }
+
 
 }
 ?>

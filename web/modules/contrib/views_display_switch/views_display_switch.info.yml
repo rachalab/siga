@@ -1,0 +1,12 @@
+name: 'Views display switch'
+type: module
+description: 'Provides links to switch between displays in views'
+core_version_requirement: ^9 || ^10 || ^11
+package: 'Custom'
+dependencies:
+  - drupal:views
+
+# Information added by Drupal.org packaging script on 2024-11-29
+version: '1.1.5'
+project: 'views_display_switch'
+datestamp: 1732890626

@@ -1,0 +1,4 @@
+parameters:
+	excludePaths:
+		- *.theme.inc
+		- src/Controller/*

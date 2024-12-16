@@ -1,0 +1,4 @@
+pg_email.settings:
+  title: Email
+  route_name: pf_email.settings
+  base_route: push_framework.settings

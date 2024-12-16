@@ -1,0 +1,10 @@
+name: Gantt
+type: module
+description: This module uses the dhtmlx GANTT javascript library
+package: Views
+core_version_requirement: ^9 || ^10 || ^11
+
+# Information added by Drupal.org packaging script on 2024-10-15
+version: '1.0.17'
+project: 'gantt'
+datestamp: 1729024763

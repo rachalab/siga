@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * Push Framework Email module file.
+ */
+
+use Drupal\Core\Entity\EntityMalformedException;
+use Drupal\Core\Render\Markup;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_mail().
+ */
+function pf_email_mail(string $key, array &$message, array $params): void {
+  if ($key == 'notification') {
+    $prefix = '';
+    $suffix = '';
+    if ($params['is html']) {
+      try {
+        $url = Url::fromUri('internal:/', [
+          'absolute' => TRUE,
+          'https' => TRUE,
+        ])->toString();
+      }
+      catch (EntityMalformedException $e) {
+        $url = '';
+      }
+
+      $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed';
+      $prefix = Markup::create('<html lang="en" dir="ltr"><head><base href="' . $url . '" target="_blank"><meta charset="utf-8"></head><body>');
+      $suffix = Markup::create('</body></html>');
+    }
+    $message['subject'] = $params['subject'];
+    $message['body'][] = $prefix;
+    $message['body'][] = $params['body'];
+    $message['body'][] = $suffix;
+  }
+}

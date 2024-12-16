@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Gantt module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_theme().
+ *
+ * Call the base hook from Paragraphs to allow preprocess hooks to work.
+ */
+function gantt_theme() {
+
+  // Store gantt preprocess theme functions in a separate .inc file.
+  \Drupal::moduleHandler()->loadInclude('gantt', 'inc', 'gantt.theme');
+
+  return [
+    'views_view_gantt' => [
+      'file' => 'gantt.theme.inc',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_help().
+ */
+function gantt_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the paragraphs_table module.
+    case 'help.page.gantt':
+      $output = '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('If you want to display tasks in a GANTT Chart using the dhtmlx GANTT library, you can use the views display plugin provided by this module.');
+      $output .= '<p>' . t('To use this module, you can download the dhtmlx GANTT library, which you can do by uploading it to /libraries folder.') . '</p>';
+      return $output;
+
+    default:
+  }
+}

@@ -1,0 +1,40 @@
+views.style.kanban:
+  type: views_style
+  label: 'Kanban'
+  mapping:
+    status_field:
+      type: string
+      label: 'Status field'
+    progress_field:
+      type: string
+      label: 'Progress field'
+    title_field:
+      type: string
+      label: 'Title field'
+    assign_field:
+      type: string
+      label: 'Assign field'
+    history_field:
+      type: string
+      label: 'History field'
+    send_email:
+      type: boolean
+      label: 'Send email when date change'
+    total_field:
+      type: string
+      label: 'Total field'
+    dialog_width:
+      type: string
+      label: 'Dialog width'
+    disable_dragdrop:
+      type: boolean
+      label: 'Disable drag and drop'
+    disable_add:
+      type: boolean
+      label: 'Disable add button'
+    show_hide_columns:
+      type: boolean
+      label: 'Show hide columns'
+    send_notification:
+      type: boolean
+      label: 'Send notification'

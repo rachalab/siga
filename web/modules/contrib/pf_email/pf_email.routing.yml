@@ -1,0 +1,7 @@
+pf_email.settings:
+  path: '/admin/config/system/push_framework/email'
+  defaults:
+    _title: 'Email'
+    _form: 'Drupal\pf_email\Form\Settings'
+  requirements:
+    _permission: 'administer site configuration'

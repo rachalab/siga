@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * @file
+ * Kanban Views module help and theme functions.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function views_kanban_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the views_kanban module.
+    case 'help.page.views_kanban':
+      $output = '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This module streamlines the process of organizing and visualizing your tasks, allowing you to effectively manage projects using the Scrum methodology.') . '</p>';
+
+      $output .= '<h4>' . t('How to use:') . '</h4>';
+      $output .= '<p>' . t('You can create a content type with a status field, which can be a') . '</p>';
+      $output .= '<ul><li>' . t('Taxonomy field') . '</li>';
+      $output .= '<li>' . t('List field') . '</li>';
+      $output .= '<li>' . t('State machine') . '</li>';
+      $output .= '<li>' . t('Workflow') . '</li>';
+      $output .= '<li>' . t('Content Moderation(fully compatible)') . '</li></ul>';
+      $output .= '<p>' . t('You also have the option to include a progress field,
+which is a numeric field with a value between 0 and 100') . '</p>';
+      $output .= '<p>' . t('You can add an assignor field that references the user.') . '</p>';
+      $output .= '<p>' . t('Additionally, you can include a history field, which can be an unlimited storage setting') . '</p>';
+      $output .= '<ul><li>' . t('plain text') . '</li>';
+      $output .= '<li>' . t('double field with a datetime (datetime - text)') . '</li></ul>';
+      $output .= '<p>' . t('Create a view with style Format "Kanban". Change Show to Fields.') . '</p>';
+      $output .= '<p>' . t("You can add fields you want, Exclude from display the field if you don't want show (like history field). and define the field selected the Format / Settings.") . '</p>';
+      $output .= '<p>' . t('In the format settings, you can select your preferred fields, with the **status field being required** and the others being optional.') . '</p>';
+      $output .= '<p>' . t('This module also supports <a href="https://www.drupal.org/project/pwa_firebase" rel="nofollow">send notification with firebase</a>, which can be sent to assignors when the status of a task has changed.') . '</p>';
+      $output .= '<p>' . t('The module design base on a <a href="https://www.drupal.org/project/bootstrap5_admin" rel="nofollow">Bootstrap 5 theme</a>') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function views_kanban_theme($existing, $type, $theme, $path) {
+  // Store Kanban preprocess theme functions in a separate .inc file.
+  \Drupal::moduleHandler()
+    ->loadInclude('views_kanban', 'inc', 'views_kanban.theme');
+
+  return [
+    'views_view_kanban' => [
+      'file' => 'views_kanban.theme.inc',
+    ],
+    'views_email_kanban' => [
+      'template' => 'views-email-kanban',
+      'variables' => [
+        'message' => [],
+        'author_initial' => '',
+        'author_avatar' => '',
+        'type' => '',
+        'author_name' => '',
+        'title' => '',
+        'assignator' => '',
+        'btn_text' => '',
+        'link' => '',
+      ],
+    ],
+  ];
+}

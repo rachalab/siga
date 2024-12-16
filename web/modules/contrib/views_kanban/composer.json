@@ -1,0 +1,20 @@
+{
+    "name": "drupal/views_kanban",
+    "description": "The plugin displays the kanban view",
+    "type": "drupal-module",
+    "keywords": ["Drupal", "kanban", "view", "agile", "swimlane"],
+    "homepage": "https://www.drupal.org/project/views_kanban",
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/views_kanban",
+        "source": "https://git.drupalcode.org/project/views_kanban"
+    },
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "NGUYEN Bao",
+            "email": "n.bao@yahoo.com",
+            "homepage": "https://www.drupal.org/u/lazzyvn",
+            "role": "Maintainer"
+        }
+    ]
+}

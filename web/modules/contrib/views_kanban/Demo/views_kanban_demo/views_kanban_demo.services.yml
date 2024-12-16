@@ -1,0 +1,6 @@
+services:
+  event_subscriber_kanban.node.insert:
+    class: Drupal\views_kanban_demo\EventSubscriber\KanbanNodeInsertSubscriber
+    arguments: [ '@messenger', '@date.formatter', '@logger.factory' ]
+    tags:
+      - { name: 'event_subscriber' }

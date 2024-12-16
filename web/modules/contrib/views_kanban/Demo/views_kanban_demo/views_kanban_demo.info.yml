@@ -1,0 +1,13 @@
+name: 'Views kanban demo'
+description: 'Provides Task content type and task demo for view kanban'
+type: module
+package: 'Views'
+core_version_requirement: '^8.9 || ^9 || ^10 || ^11'
+dependencies:
+  - views_kanban:views_kanban
+  - field_states:field_states
+
+# Information added by Drupal.org packaging script on 2024-08-06
+version: '1.0.24'
+project: 'views_kanban'
+datestamp: 1722978184

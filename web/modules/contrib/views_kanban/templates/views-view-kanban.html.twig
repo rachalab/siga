@@ -1,0 +1,130 @@
+{#
+/**
+ * Default theme implementation for Views Kanban.
+ *
+ * Available variables:
+ * - options: View plugin style options:
+ *   - classes: CSS classes.
+ *   - columns: Whether months should be nested inside years.
+ *
+ * @see template_preprocess_views_view_kanban()
+ *
+ * @ingroup themeable
+ */
+#}
+{% set classes = [
+  'views-view-kaban',
+  'container-fluid',
+  'mt-lg-3',
+  options.classes
+] %}
+
+{% if options.show_hide_columns %}
+<div class="d-flex justify-content-end kanban-column-toggle-wrapper">
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton_{{ view_id }}_{{ display_id }}" data-bs-toggle="dropdown"
+            aria-expanded="false">
+      <i class="bi bi-list-ul"></i>
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu kanban-column-controls" data-view_id="{{ view_id }}" data-display_id="{{ display_id }}" aria-labelledby="dropdownMenuButton_{{ view_id }}_{{ display_id }}">
+      {% for index, column in columns %}
+        <li>
+          <a class="dropdown-item" href="#">
+            <input class="form-check-input me-1" type="checkbox" value="{{ index }}"
+                   id="kanbanColumn{{ index|replace({' ': ''}) }}" checked>
+            <label class="form-check-label w-100" for="kanbanColumn{{ index|replace({' ': ''}) }}">
+              {{ column.header|capitalize }}
+            </label>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}
+
+<div {{ attributes.addClass(classes) }} data-view_id="{{ view_id }}" data-display_id="{{ display_id }}">
+  <div class="row flex-row flex-sm-nowrap py-3">
+    {% for index, column in columns %}
+      <div class="layout-column layout-column--quarter col-auto col-md-auto col-lg-3 h-100 kanban-col status-{{ index|replace({' ':''}) }}" data-col-status="{{ index|replace({' ':''}) }}">
+        <div class="gin-layer-wrapper mb-3 border card position-relative border-{{ column.color }}-subtle">
+          <span class="badge button--dismiss position-absolute top-0 left-0 translate-middle bg-{{ column.color }} border border-white total-status">{{ column.rows|length }}</span>
+          <div class="card-header bg-{{ column.color }} bg-gradient">
+            <div class="panel__title card-title h5 mb-1 text-white d-flex justify-content-between" data-bs-toggle="collapse"
+                data-bs-target="#collapse{{ index|replace({' ':''}) }}">
+              <span>{{ column.header|capitalize }}</span>
+              {% if column.total %}
+                <span class="total text-white">
+                  {{ column.total.label }} <span class="badge bg-secondary">{{ column.total.value }}</span>
+                </span>
+              {% endif %}
+            </div>
+          </div>
+          <div class="panel-body card__content-wrapper" data-color="{{ column.color }}" id="collaps{{ index|replace({' ':''}) }}" class="collapse show">
+            <div class="card-body card__content overflow-auto vh-100" droppable="true" data-value="{{ index }}">
+              {% for row in column.rows %}
+                <details class="claro-details card mb-3 cursor-grab shadow-sm" data-once="details" open id="item{{ row.entity_id }}" data-id="{{ row.entity_id }}"
+                  draggable="true" data-value="{{ index }}" data-type="{{ row.entity_type }}" data-point="{{ row.total }}">
+                  <summary class="claro-details__summary claro-details__summary--system-status-report card-title list-unstyled px-2 h6">{{ row.title }}<span class="claro-details__summary-summary"></span></summary>
+                  <article {{ row.attributes.addClass('card-body claro-details__wrapper claro-details__wrapper--system-status-report') }}>
+                    <div class="card-text mb-0">{{ row.content }}</div>
+                    {% if row.progress %}
+                      <div class="d-flex align-items-center justify-content-between mb-2">
+                        <h5 class="h6 mb-0">{{ row.author }}</h5>
+                        <div class="fw-bold small">
+                          <span>{{ row.progress }}%</span>
+                        </div>
+                      </div>
+                      <div class="progress" role="progressbar" aria-valuenow="{{ row.progress }}" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar bg-{{ column.color }}" style="width: {{ row.progress }}%" min="0" max="100"
+                             role="progress-bar" value="{{ row.progress }}" data-bs-toggle="tooltip" title="{{ row.progress }}%"></div>
+                      </div>
+                    {% endif %}
+                  </article>
+                  <div class="card-footer bg-light-subtle bg-gradient border-0 container">
+                    <div class="row gx-5 align-middle">
+                      {% if(row.view) %}
+                        <div class="col-1 panel action-link action-link--icon-show mt-2">
+                          {{ row.view }}
+                        </div>
+                      {% endif %}
+                      {% if(row.edit) %}
+                        <div class="col-1 panel action-link action-link--icon-cog mt-2">
+                          {{ row.edit }}
+                        </div>
+                      {% endif %}
+                      <div class="col">
+                        <i class="bi bi-clock-history"></i> <time class="fs-6 fw-light">{{ row.date }}</time>
+                      </div>
+                      {% for assign in row.assign %}
+                        <div class="col text-end">
+                          {% if assign.avatar %}
+                            <img src="{{ assign.avatar }}" title="{{ assign.name }}" class="img-avatar rounded-circle"
+                                 data-bs-toggle="tooltip">
+                          {% else %}
+                            <div class="text-avatar bg-secondary text-white img-circle text-center"
+                                 title="{{ assign.name }}" data-uid="{{ assign.uid }}" data-bs-toggle="tooltip">
+                              {{ assign.acronym }}
+                            </div>
+                          {% endif %}
+                        </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </details>
+              {% endfor %}
+            </div>
+          </div>
+          {% if column.add %}
+          <div class="card-footer card__footer bg-light text-center border-{{ column.color }}-subtle">
+            <div class="action-link action-link--icon-plus">
+              {{ column.add }}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>

@@ -1,0 +1,12 @@
+kanban:
+  version: 1.0
+  css:
+    theme:
+      css/kanban.css: {}
+  js:
+    js/kanban.js: {}
+  dependencies:
+    - core/jquery
+    - core/once
+    - core/drupal
+    - core/drupalSettings

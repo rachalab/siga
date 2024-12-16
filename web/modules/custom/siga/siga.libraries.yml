@@ -1,8 +1,17 @@
-siga_script:
+population:
   version: 1.0
   js:
-    js/siga_script.js: {}
+    js/population.js: {}
   dependencies:
     - core/jquery
     - core/drupal
     - core/drupalSettings
+activities:
+  version: 1.0
+  js:
+    js/activities.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/drupal.once

@@ -1,0 +1,5 @@
+pf_email.settings:
+  title: Email
+  parent: push_framework.settings
+  route_name: pf_email.settings
+  weight: 10

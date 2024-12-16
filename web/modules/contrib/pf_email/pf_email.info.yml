@@ -1,0 +1,12 @@
+name: Push Framework Email
+type: module
+description: Email push notification channel for the Push Framework.
+package: Push
+core_version_requirement: ^10 || ^11
+dependencies:
+  - push_framework:push_framework
+
+# Information added by Drupal.org packaging script on 2023-12-15
+version: '2.3.0'
+project: 'pf_email'
+datestamp: 1702630639

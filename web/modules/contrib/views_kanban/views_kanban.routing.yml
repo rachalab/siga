@@ -1,0 +1,11 @@
+update_entity_kanban_state:
+  path: '/views-kanban/update-state/{view_id}/{display_id}/{entity_id}/{state_value}'
+  defaults:
+    _controller: '\Drupal\views_kanban\Controller\KanbanController::updateState'
+  requirements:
+    _permission: 'access content'
+    entity_id: \d+
+  options:
+    parameters:
+      entity:
+        type: entity
