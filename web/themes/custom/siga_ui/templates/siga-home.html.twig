@@ -1,0 +1,63 @@
+<div class="home-container">
+  <h1>Bienvenido</h1>
+  <p>Te damos la bienvenida al Sistema Integral de Gestión y Seguimiento (SIGA).</p>
+
+  {# Sección de Organizaciones #}
+  {% if organizations is not empty %}
+    <div class="organization-section">
+      <h2>Organizaciones</h2>
+      {% for org in organizations %}
+        <div class="organization-card">
+          <h3>{{ org.label }}</h3>
+          <div class="organization-details">
+            {% for detail in org.details %}
+              <p>{{ detail|raw }}</p>
+            {% endfor %}
+          </div>
+          <a href="{{ org.edit_url }}" class="btn btn-primary">Editar</a>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No hay organizaciones asociadas.</p>
+  {% endif %}
+
+  {# Sección de Programas, Convocatorias y Proyectos #}
+  {% if programs is not empty %}
+    <div class="programs-section">
+      <h2>Programas</h2>
+      {% for program in programs %}
+        <div class="program-card">
+          <h3>{{ program.label }}</h3>
+          {% if program.calls is not empty %}
+            <div class="calls-section">
+              {% for call in program.calls %}
+                <div class="call-card">
+                  <h4>Convocatoria: {{ call.label }}</h4>
+                  {{ call.description }}
+                  {% if call.projects is not empty %}
+                    <div class="projects-section">
+                      <h5>Proyectos:</h5>
+                      {% for project in call.projects %}
+                        <div class="project-card">
+                          <h6>{{ project.label }}</h6>
+                          <a href="{{ project.edit_url }}" class="btn btn-primary">Editar</a>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                    <p>No hay proyectos asociados a esta convocatoria.</p>
+                  {% endif %}
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <p>No hay convocatorias asociadas a este programa.</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No hay programas asociados.</p>
+  {% endif %}
+</div>

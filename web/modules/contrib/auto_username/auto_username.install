@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the auto_username module.
+ */
+
+use Symfony\Component\Yaml\Yaml;
+
+/**
+ * Implements hook_uninstall().
+ */
+function auto_username_uninstall() {
+  // Delete all the aun variables and then clear the variable cache.
+  global $conf;
+  if (isset($conf)) {
+    foreach (array_keys($conf) as $key) {
+      // Find variables that have the module prefix.
+      if (strpos($key, 'aun_') === 0) {
+        Drupal::state()->delete($key);
+      }
+    }
+  }
+}
+
+/**
+ * Add the "auto_username_rename_action" action as a system action.
+ */
+function auto_username_update_8001(&$sandbox) {
+  $config_id = 'system.action.auto_username_rename_action';
+  $config_path = \Drupal::service('extension.list.module')->getPath('auto_username') . '/config/install/' . $config_id . '.yml';
+  $data = Yaml::parseFile($config_path);
+  \Drupal::configFactory()->getEditable($config_id)->setData($data)->save(TRUE);
+}

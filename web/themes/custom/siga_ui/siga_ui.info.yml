@@ -6,3 +6,4 @@ core_version_requirement: ^10 || ^11
 libraries:
   - siga_ui/global-styling
   - siga_ui/dropdown
+  - siga_ui/user_menu

@@ -1030,7 +1030,7 @@ class ConditionalFieldsFormHelper {
     // Regular expression method.
     if ($options['values_set'] == ConditionalFieldsInterface::CONDITIONAL_FIELDS_DEPENDENCY_VALUES_REGEX) {
       foreach ($reference_values as $reference_value) {
-        if (!preg_match('/' . $options['regex'] . '/', $reference_value)) {
+        if (!preg_match('/' . $options['regex'] . '/', (string) $reference_value)) {
           return FALSE;
         }
       }

@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+  enforced:
+    module:
+      - auto_username
+id: auto_username_rename_action
+label: 'Generate username(s) using the "Auto Username" module'
+type: user
+plugin: auto_username_rename_action
+configuration: {  }

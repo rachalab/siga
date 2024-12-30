@@ -2,11 +2,66 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\node\NodeInterface;
+use Drupal\message\Entity\Message;
+
+/**
+ * @file
+ * Contains custom logic for handling node creation notifications.
+ */
+
+function siga_entity_insert($entity) {
+ 
+  // Verifica si la entidad es un nodo del tipo "organization".
+  if ($entity instanceof NodeInterface && $entity->bundle() === 'organization') {
+    // Crear el mensaje usando el tipo de mensaje "new_organization_created".
+    $message = Message::create([
+      'template' => 'new_organization', // ID del tipo de mensaje.
+      'uid' => $entity->getOwnerId(), // Propietario del nodo.
+    ]);
+
+    $message->set('field_organization', $entity->id());
+
+    $admin_role = 'administrator';
+    $admin_users = \Drupal::entityTypeManager()
+      ->getStorage('user')
+      ->loadByProperties(['roles' => $admin_role]);
+
+    $recipient_ids = [];
+    
+    foreach ($admin_users as $admin_user) {
+      $recipient_ids[] = $admin_user->id();
+    }
+
+    $message->set('field_recipients', $recipient_ids);
+    $message->save();
+
+    // Enviar las notificaciones a través de Message Notify.
+    \Drupal::service('message_notify.sender')->send($message, $recipient_ids);
+
+  }
+}
+
 
 /**
  * Implementa hook_form_alter().
  */
 function siga_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-
-
+ 
 }
+
+/**
+ * Implements hook_theme().
+ */
+function siga_theme() {
+    return [
+      'siga_home' => [
+        'variables' => [
+          'organizations' => NULL,
+          'programs' => NULL,
+          'projects' => NULL,
+        ],
+        'template' => 'siga-home', // Archivo Twig sin la extensión.
+      ],
+    ];
+  }

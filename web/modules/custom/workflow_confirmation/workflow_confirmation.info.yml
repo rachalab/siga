@@ -1,0 +1,7 @@
+name: Workflow Transitions Confirmation
+type: module
+description: Adds a JS confirmation step prior to a workflow transition action.
+core_version_requirement: ^10
+dependencies:
+  - workflow
+package: Custom

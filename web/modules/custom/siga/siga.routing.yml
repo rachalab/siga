@@ -1,0 +1,9 @@
+siga.home:
+  path: '/home'
+  defaults:
+    _controller: '\Drupal\siga\Controller\HomeController::content'
+    _title: 'Home'
+  requirements:
+    _permission: 'access content'
+  options:
+    no_cache: 'TRUE'

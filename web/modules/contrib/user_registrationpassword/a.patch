@@ -1,0 +1,31 @@
+diff --git a/user_registrationpassword.module b/user_registrationpassword.module
+index af83384..aed3c7f 100644
+--- a/user_registrationpassword.module
++++ b/user_registrationpassword.module
+@@ -552,7 +552,7 @@ function _user_registrationpassword_user_pass_submit(&$form, FormStateInterface
+       $account = \Drupal::entityTypeManager()->getStorage('user')->load($uid);
+       // Mail one time login URL and instructions using current language.
+       $mail = _user_registrationpassword_mail_notify('register_confirmation_with_pass', $account);
+-      if (!empty($mail)) {
++      if ($mail) {
+         // And on success, log the email & throw a message.
+         \Drupal::logger('user')->notice('Account confirmation mail sent via password reset form to %name at %email.', [
+           '%name' => $account->getAccountName(),
+@@ -602,7 +602,7 @@ function user_registrationpassword_config_translation_info_alter(&$info) {
+  *
+  * @see user_registrationpassword_mail_tokens()
+  */
+-function _user_registrationpassword_mail_notify($op, AccountInterface $account, $langcode = NULL): array {
++function _user_registrationpassword_mail_notify($op, AccountInterface $account, $langcode = NULL): bool {
+   $output = [];
+   if (\Drupal::config('user_registrationpassword.settings')->get('notify.' . $op)) {
+     $params['account'] = $account;
+@@ -620,7 +620,7 @@ function _user_registrationpassword_mail_notify($op, AccountInterface $account,
+     }
+     // Notify the user.
+     $mail = \Drupal::service('plugin.manager.mail')->mail('user_registrationpassword', $op, $account->getEmail(), $langcode, $params, $site_mail);
+-    $output = $mail['result'] ?? [];
++    $output = $mail['result'] ?? FALSE;
+   }
+ 
+   return $output;

@@ -5,3 +5,16 @@ global-styling:
 dropdown:
   js:
     js/dropdown.js: {}
+workflow_confirmation:
+  version: 1.0
+  js:
+    js/workflow_confirmation.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupal.once
+user_menu:
+  js:
+    js/user_menu.js: {}
+  dependencies:
+    - core/drupal

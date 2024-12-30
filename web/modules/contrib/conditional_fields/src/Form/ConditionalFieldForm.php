@@ -120,9 +120,6 @@ class ConditionalFieldForm extends FormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $table = $form_state->getValue('table');
-    if (empty($table['add_new_dependency']) || !is_array($table['add_new_dependency'])) {
-      parent::validateForm($form, $form_state);
-    }
     $conditional_values = $table['add_new_dependency'];
 
     if (array_key_exists('dependee', $conditional_values) &&
@@ -148,7 +145,6 @@ class ConditionalFieldForm extends FormBase {
         }
       }
     }
-    parent::validateForm($form, $form_state);
   }
 
   /**
@@ -176,10 +172,6 @@ class ConditionalFieldForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $table = $form_state->getValue('table');
-    if (empty($table['add_new_dependency']) || !is_array($table['add_new_dependency'])) {
-      return;
-    }
-
     $field_names = [];
     $form_state->set('plugin_settings_edit', NULL);
 

@@ -1,0 +1,22 @@
+{
+  "name": "drupal/auto_username",
+  "description": "Allows a user's username to be assigned based on tokens or api hook.",
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://drupal.org/project/auto_username",
+  "authors": [
+    {
+      "name": "Alex Bergin (alexkb)",
+      "homepage": "https://www.drupal.org/u/alexkb",
+      "role": "Creator, Maintainer"
+    }
+  ],
+  "support": {
+      "issues": "https://drupal.org/project/issues/auto_username",
+      "source": "https://git.drupalcode.org/project/auto_username"
+  },
+  "require": {
+    "drupal/core": "^8.7.7 || ^9 || ^10",
+    "drupal/token": "^1.6"
+  }
+}

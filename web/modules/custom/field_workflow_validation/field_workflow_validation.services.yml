@@ -1,0 +1,6 @@
+services:
+  field_workflow_validation.entity_presave_subscriber:
+    class: Drupal\field_workflow_validation\EventSubscriber\EntityPresaveSubscriber
+    arguments: ['@entity_field.manager', '@string_translation']
+    tags:
+      - { name: event_subscriber }

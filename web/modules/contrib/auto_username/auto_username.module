@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * @file
+ * Allows a user's username to be assigned based on tokens.
+ */
+
+use Drupal\Core\Database\Database;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function auto_username_form_user_register_form_alter(&$form, &$form_state, $form_id) {
+  $form['account']['name']['#type'] = 'hidden';
+  // Use uuid service to generate a temporary name that is guaranteed to pass
+  // Drupal core's UserNameConstraintValidator. The password_generator service
+  // can be replaced or decorated to make more secure passwords, while a UUID
+  // is always generated according to RFC 4122.
+  // eg f42fd056-1b53-431c-b09a-210c6b1fb1b0
+  $form['account']['name']['#value'] = \Drupal::service('uuid')->generate();
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function auto_username_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
+  $form['account']['name']['#type'] = 'hidden';
+}
+
+/**
+ * Implements hook_user_insert().
+ */
+function auto_username_user_insert($account) {
+  $new_name = \Drupal::service('auto_username.utilities')->autoUsernameGenerateUsername($account);
+  // No point updating anything if the generated name was just the same.
+  if ($account->name == $new_name) {
+    return;
+  }
+
+  // Replace with generated username.
+  Database::getConnection()
+    ->update('users_field_data')
+    ->fields(['name' => $new_name])
+    ->condition('uid', $account->id())
+    ->execute();
+  $account->name = $new_name;
+}
+
+/**
+ * Implements hook_user_update().
+ */
+function auto_username_user_update($account) {
+  if (\Drupal::config('auto_username.settings')->get('aun_update_on_edit')) {
+    // Same processing as for user insert.
+    auto_username_user_insert($account);
+  }
+}
+
+/**
+ * Clean token values.
+ *
+ * Callback from token replacement service.
+ *
+ * @param array $replacements
+ *   An array of token replacements that need to be "cleaned".
+ */
+function auto_username_clean_token_values(&$replacements) {
+  foreach ($replacements as $token => $value) {
+    $replacements[$token] = \Drupal::service('auto_username.utilities')->autoUsernameCleanstring($value);
+  }
+}

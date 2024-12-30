@@ -1,0 +1,132 @@
+auto_username.settings:
+  type: config_object
+  mapping:
+    aun_pattern:
+      type: string
+      label: 'Pattern for username'
+    aun_php:
+      type: boolean
+      label: 'Evaluate PHP in pattern'
+    aun_update_on_edit:
+      type: boolean
+      label: 'Update on user edit'
+    aun_separator:
+      type: string
+      label: 'Separator'
+    aun_case:
+      type: integer
+      label: 'Character case'
+    aun_max_length:
+      type: integer
+      label: 'Maximum alias length'
+    aun_max_component_length:
+      type: integer
+      label: 'Maximum component length'
+    aun_transliterate:
+      type: boolean
+      label: 'Transliterate prior to creating username'
+    aun_reduce_ascii:
+      type: boolean
+      label: 'Reduce strings to letters and numbers'
+    aun_replace_whitespace:
+      type: boolean
+      label: 'Replace whitespace with separator'
+    aun_ignore_words:
+      type: text
+      label: 'Strings to Remove'
+    aun_punctuation_double_quotes:
+      type: integer
+      label: 'Action on Double quotation marks Punctuation'
+    aun_punctuation_quotes:
+      type: integer
+      label: 'Action on Single quotation marks Punctuation'
+    aun_punctuation_backtick:
+      type: integer
+      label: 'Action on Back tick Punctuation'
+    aun_punctuation_comma:
+      type: integer
+      label: 'Action on Comma Punctuation'
+    aun_punctuation_period:
+      type: integer
+      label: 'Action on Period Punctuation'
+    aun_punctuation_hyphen:
+      type: integer
+      label: 'Action on Hyphen Punctuation'
+    aun_punctuation_underscore:
+      type: integer
+      label: 'Action on Underscore Punctuation'
+    aun_punctuation_colon:
+      type: integer
+      label: 'Action on Colon Punctuation'
+    aun_punctuation_semicolon:
+      type: integer
+      label: 'Action on Semicolon Punctuation'
+    aun_punctuation_pipe:
+      type: integer
+      label: 'Action on Vertical bar Punctuation'
+    aun_punctuation_left_curly:
+      type: integer
+      label: 'Action on Left curly bracket Punctuation'
+    aun_punctuation_left_square:
+      type: integer
+      label: 'Action on Left square bracket Punctuation'
+    aun_punctuation_right_curly:
+      type: integer
+      label: 'Action on Right curly bracket Punctuation'
+    aun_punctuation_right_square:
+      type: integer
+      label: 'Action on Right square bracket Punctuation'
+    aun_punctuation_plus:
+      type: integer
+      label: 'Action on Plus sign Punctuation'
+    aun_punctuation_equal:
+      type: integer
+      label: 'Action on Equal sign Punctuation'
+    aun_punctuation_asterisk:
+      type: integer
+      label: 'Action on Asterisk Punctuation'
+    aun_punctuation_ampersand:
+      type: integer
+      label: 'Action on Ampersand Punctuation'
+    aun_punctuation_percent:
+      type: integer
+      label: 'Action on Percent sign Punctuation'
+    aun_punctuation_caret:
+      type: integer
+      label: 'Action on Caret Punctuation'
+    aun_punctuation_dollar:
+      type: integer
+      label: 'Action on Dollar sign Punctuation'
+    aun_punctuation_hash:
+      type: integer
+      label: 'Action on Number sign Punctuation'
+    aun_punctuation_at:
+      type: integer
+      label: 'Action on At sign Punctuation'
+    aun_punctuation_exclamation:
+      type: integer
+      label: 'Action on Exclamation mark Punctuation'
+    aun_punctuation_tilde:
+      type: integer
+      label: 'Action on Tilde Punctuation'
+    aun_punctuation_left_parenthesis:
+      type: integer
+      label: 'Action on Left parenthesis Punctuation'
+    aun_punctuation_right_parenthesis:
+      type: integer
+      label: 'Action on Right parenthesis Punctuation'
+    aun_punctuation_question_mark:
+      type: integer
+      label: 'Action on Question mark Punctuation'
+    aun_punctuation_less_than:
+      type: integer
+      label: 'Action on Less-than sign Punctuation'
+    aun_punctuation_greater_than:
+      type: integer
+      label: 'Action on Greater-than sign Punctuation'
+    aun_punctuation_slash:
+      type: integer
+      label: 'Action on Slash Punctuation'
+    aun_punctuation_back_slash:
+      type: integer
+      label: 'Action on Backslash Punctuation'

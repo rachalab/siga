@@ -1,0 +1,13 @@
+name: Automatic User Names
+type: module
+description: "Allows a user's username to be assigned based on tokens or api hook."
+core_version_requirement: ^8.7.7 || ^9 || ^10
+configure: auto_username.admin_config
+dependencies:
+  - token:token
+  - drupal:user
+
+# Information added by Drupal.org packaging script on 2024-07-16
+version: '8.x-1.6'
+project: 'auto_username'
+datestamp: 1721123399

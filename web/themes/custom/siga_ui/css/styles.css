@@ -1,7 +1,15 @@
 @charset "UTF-8";
+body.user-logged-in {
+  padding-top: 50px;
+}
+
 /* STICKY */
 .region-sticky__items__inner {
   justify-content: flex-end;
+}
+
+.region-sticky {
+  inset-block-start: 50px !important;
 }
 
 /* HEADER */
@@ -41,6 +49,14 @@
 }
 #siga-navbar .siga-nav ul li {
   list-style: none;
+}
+#siga-navbar .siga-header__dropdown {
+  display: none;
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  background-color: #fff;
+  padding: 20px;
 }
 
 #gin-toolbar-bar {
@@ -465,4 +481,88 @@
 .population-table table tbody tr.total-row {
   font-weight: bold;
   background-color: #e0e0e0;
+}
+
+/* PROGRAMAS */
+@media screen and (min-width: 1024px) {
+  .form-person {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .form-person .form-element {
+    width: 100%;
+  }
+  .form-gantt-item {
+    display: grid;
+    grid-template-columns: 1fr 240px 1fr;
+    gap: 16px;
+  }
+  .form-gantt-item .form-element {
+    width: 100%;
+  }
+  .form-gantt-item .field--name-field-p-timeline .form-checkboxes {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+  .form-gantt-item .form-type--boolean {
+    display: flex;
+    flex-direction: column-reverse;
+    align-content: center;
+    text-align: center;
+    width: 20px;
+    margin: 0 !important;
+  }
+  .form-gantt-item .form-type--boolean input, .form-gantt-item .form-type--boolean legend {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .form-budget {
+    display: grid;
+    grid-template-columns: 2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr;
+    gap: 16px;
+  }
+  .form-budget .form-element {
+    width: 100%;
+  }
+  .form-accountability {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 2fr 1.5fr;
+    gap: 16px;
+  }
+  .form-accountability .form-element {
+    width: 100%;
+  }
+  .form-accountability details {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+  .form-accountability details::before {
+    content: "Comprobante";
+    font-weight: bold;
+  }
+  .form-accountability details summary {
+    display: none;
+  }
+  .form-accountability .claro-details__wrapper {
+    padding: 0;
+    margin: 10px 0 0 0;
+  }
+  .form-accountability .claro-details__wrapper .form-item__label {
+    display: none;
+  }
+  .form-accountability .claro-details__wrapper .form-managed-file {
+    display: flex;
+    align-items: center;
+  }
+  .form-accountability .claro-details__wrapper .form-managed-file input[type=file] {
+    border: none;
+    padding: 4px;
+    margin: 0;
+  }
+  .form-accountability .claro-details__wrapper .form-item__description,
+  .form-accountability .claro-details__wrapper .upload-button {
+    display: none;
+  }
 }

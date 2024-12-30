@@ -1,0 +1,91 @@
+<?php
+
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+function workflow_confirmation_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+
+  
+  // Alter workflow transition label forms.
+  if ($form_id === 'workflow_config_transition_label_form') {
+    // Iterate through transitions in the form.
+    foreach ($form['workflow_config_transition'] as $key => &$transition) {
+      
+      if (substr($key,0,1) !== "#" && is_array($transition) && isset($transition['label_new'])) {
+        // Add a text field for the confirmation message.
+
+        $transition['confirmation_message'] = [
+          '#type' => 'textfield',
+          '#title' => t('Confirmation message'),
+          '#description' => t('Enter a confirmation message to display when this transition is triggered.'),
+          '#default_value' => \Drupal::config('workflow_confirmation.settings')->get('messages.' . $key) ?: '',
+        ];
+      }
+    }
+    $form['#submit'][] = 'workflow_confirmation_form_submit';
+
+  }
+
+   // Alter node forms with workflow actions.
+  if (strpos($form_id, 'node_') === 0 && isset($form['actions'])) {
+    $transitions = false;
+    foreach ($form['actions'] as $action_key => &$action) {
+      if (is_array($action) && isset($action['#workflow']) && isset($action['#attributes'])) {
+        
+        if(!$transitions)
+        {
+          $field_name = $action['#workflow']['field_name'];
+          $workflow = $form[$field_name]['widget'][0]['_workflow_transition']['#value']->getWorkflow();
+
+          $wid = $workflow->id();
+          $states = $workflow->getStates();
+
+          $from_status = $form[$field_name]['widget'][0]['_workflow_transition']['#value']->getFromState();
+          $from_sid = $from_status->id();
+          $from_sid = substr($from_sid,strlen($wid)+1,strlen($from_sid));    
+
+          $transitions = [];
+        
+
+          foreach($states as $state_id => $state)
+          {
+            $to_sid = substr($state_id,strlen($wid)+1,strlen($state_id));  
+            $transition_key = $wid."_".$from_sid."_".$to_sid;
+            $state_key = "workflow_".$wid."_".$to_sid;
+            $transitions[$state_key] =   \Drupal::config('workflow_confirmation.settings')->get('messages.' . $transition_key);
+
+          }
+        }  
+
+        // Retrieve the confirmation message for the transition.
+        if (isset($transitions[$action_key]) ) {
+          // Add the confirmation message as a data attribute to the button.
+          $action['#attributes']['data-workflow_confirmation'] = $transitions[$action_key] ;
+        }
+      }
+    }
+
+    // Attach the JavaScript library for handling confirmations.
+    $form['#attached']['library'][] = 'workflow_confirmation/confirmations';
+  }
+}
+
+/**
+ * Implements hook_form_submit().
+ */
+function workflow_confirmation_form_submit($form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  if ($form_state->getFormObject()->getFormId() === 'workflow_config_transition_label_form') {
+    $config = \Drupal::configFactory()->getEditable('workflow_confirmation.settings');
+
+    // Save confirmation messages for each transition.
+    $values = $form_state->getValues();
+    foreach ($values['workflow_config_transition'] as $key => $value) {
+      if (isset($value['confirmation_message'])) {
+        $config->set('messages.' . $key, $value['confirmation_message']);
+      }
+    }
+
+    $config->save();
+  }
+}

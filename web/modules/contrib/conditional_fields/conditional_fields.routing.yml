@@ -40,7 +40,7 @@ conditional_fields.delete_form:
 conditional_fields.tab.node:
   path: '/admin/structure/types/manage/{node_type}/conditionals'
   defaults:
-    _title: 'Manage Dependencies'
+    _title: 'Manage dependencies'
     _controller: 'conditional_fields.controller:provideArguments'
   requirements:
     _permission: 'view conditional fields'
@@ -48,7 +48,7 @@ conditional_fields.tab.node:
 conditional_fields.tab.media:
   path: '/admin/structure/media/manage/{media_type}/conditionals'
   defaults:
-    _title: 'Manage Dependencies'
+    _title: 'Manage dependencies'
     _controller: 'conditional_fields.controller:getMediaEditFormTab'
   requirements:
     _permission: 'view conditional fields'
@@ -56,7 +56,7 @@ conditional_fields.tab.media:
 conditional_fields.tab.block_content:
   path: '/admin/structure/block/manage/block-content/{block_content_type}/conditionals'
   defaults:
-    _title: 'Manage Dependencies'
+    _title: 'Manage dependencies'
     _controller: 'conditional_fields.controller:getBlockEditFormTab'
   requirements:
     _permission: 'view conditional fields'
@@ -64,7 +64,7 @@ conditional_fields.tab.block_content:
 conditional_fields.tab.comment:
   path: '/admin/structure/comment/manage/{comment_type}/conditionals'
   defaults:
-    _title: 'Manage Dependencies'
+    _title: 'Manage dependencies'
     _controller: 'conditional_fields.controller:getCommentEditFormTab'
   requirements:
     _permission: 'view conditional fields'
@@ -72,7 +72,7 @@ conditional_fields.tab.comment:
 conditional_fields.tab.user:
   path: '/admin/config/people/accounts/conditionals'
   defaults:
-    _title: 'Manage Dependencies'
+    _title: 'Manage dependencies'
     _controller: 'conditional_fields.controller:getUserEditFormTab'
   requirements:
     _permission: 'view conditional fields'
@@ -80,7 +80,7 @@ conditional_fields.tab.user:
 conditional_fields.tab.paragraph:
   path: '/admin/structure/paragraphs_type/{paragraphs_type}/conditionals'
   defaults:
-    _title: 'Manage Dependencies'
+    _title: 'Manage dependencies'
     _controller: 'conditional_fields.controller:getParagraphEditFormTab'
   requirements:
     _permission: 'view conditional fields'

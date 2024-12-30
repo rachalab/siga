@@ -1,0 +1,9 @@
+name: 'Field Workflow Validation'
+type: module
+description: 'Permite que los campos sean obligatorios en estados específicos del Workflow.'
+core_version_requirement: ^10
+package: Custom
+dependencies:
+  - drupal:workflow
+  - drupal:field
+  - drupal:node

@@ -14,11 +14,20 @@ $color-status-text: #000;
 $color-person-bg: #ccc;
 $color-info: red;
 
+body.user-logged-in
+{
+  padding-top: 50px;
+}
+
 /* STICKY */
 
 .region-sticky__items__inner
 {
     justify-content: flex-end;
+}
+.region-sticky{
+
+  inset-block-start: 50px !important;
 }
 
 
@@ -71,6 +80,16 @@ $color-info: red;
                 list-style: none;
             }
         }
+    }
+
+    .siga-header__dropdown
+    {
+      display: none;
+      position: fixed;
+      top: 50px;
+      right: 50px;
+      background-color: #fff;
+      padding: 20px;
     }
    
     
@@ -599,4 +618,124 @@ $color-info: red;
       }
     }
   }
+}
+
+
+/* PROGRAMAS */
+
+@media screen and (min-width: 1024px) {
+    
+  .form-person
+  {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 16px;
+    .form-element
+    {
+      width: 100%;
+    }
+  }
+
+
+  .form-gantt-item
+  {
+    display: grid;
+    grid-template-columns: 1fr 240px 1fr ;
+    gap: 16px;
+    .form-element
+    {
+      width: 100%;
+    }
+
+
+    .field--name-field-p-timeline .form-checkboxes
+    {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr  1fr   1fr   1fr ;
+    }
+
+    .form-type--boolean
+    {
+      display: flex;
+      flex-direction: column-reverse;
+      align-content: center;
+      text-align: center;;
+      width: 20px;
+      margin: 0 !important;
+      input,legend
+      {
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+    }
+
+  }
+
+  .form-budget
+  {
+    display: grid;
+    grid-template-columns: 2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr ;
+    gap: 16px;
+    .form-element
+    {
+      width: 100%;
+    }
+
+  }
+
+  .form-accountability
+  {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 2fr 1.5fr ;
+    gap: 16px;
+    .form-element
+    {
+      width: 100%;
+    }
+
+        // Mostrar el título principal "Comprobante"
+        details {
+          border: none;
+          padding: 0;
+          margin: 0;
+          &::before{
+            content: "Comprobante";
+            font-weight: bold;
+          }
+          summary {
+            display: none;
+          }
+        }
+      
+        .claro-details__wrapper {
+          padding: 0;
+          margin: 10px 0 0 0;
+          // Ocultar el texto "Añadir archivo nuevo"
+          .form-item__label {
+            display: none;
+          }
+      
+          // Estilizar el input de archivo
+          .form-managed-file {
+            display: flex;
+            align-items: center;
+      
+            input[type="file"] {
+              border: none;
+              padding: 4px;
+              margin: 0;
+            }
+          }
+      
+          // Ocultar información extra y botones
+          .form-item__description,
+          .upload-button {
+            display: none;
+          }
+        }
+      
+    
+
+  }
+
 }

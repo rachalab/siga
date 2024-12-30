@@ -15,7 +15,6 @@
         {% set end_month = end_date|date('M')|upper %}
         {% set start_year = start_date|date('Y') %}
         {% set end_year = end_date|date('Y') %}
-        <td>{{ 'Otros géneros'|t }}</td>
 
         <div class="date">
           {% if start_day == end_day and start_month == end_month and start_year == end_year %}

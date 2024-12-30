@@ -11,11 +11,14 @@
 
         <div class="siga-menu">
             <div class="siga-header__user">
-                <span>{{ user.displayname }} </span>
+                <span>
+                {{ user.displayname|length > 10 ? user.displayname|slice(0, 10) ~ '...' : user.displayname }}
+                </span>
+
                 <button class="siga-header__dropdown-toggle">▼</button>
             </div>
             <ul class="siga-header__dropdown" style="display: none">
-                <li><a href="{{ path('user.page') }}">Mi perfil</a></li>
+                <li><a href="{{ path('entity.user.edit_form', {'user': user.id}) }}">Editar cuenta</a></li>
                 <li><a href="{{ path('user.logout') }}">Cerrar sesión</a></li>
             </ul>
         </div>

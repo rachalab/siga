@@ -1,0 +1,4 @@
+services:
+  auto_username.utilities:
+    class: Drupal\auto_username\AutoUsernameUtilities
+    arguments: ['@entity_field.manager', '@language_manager', '@module_handler', '@config.factory', '@token', '@database', '@cache.default', '@string_translation']
