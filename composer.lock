@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a091a1459b264ac4e778bf88c4044487",
+    "content-hash": "782b018179a9301bc1c6dbfdec522270",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2397,6 +2397,54 @@
             }
         },
         {
+            "name": "drupal/epp",
+            "version": "1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/epp.git",
+                "reference": "8.x-1.7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/epp-8.x-1.7.zip",
+                "reference": "8.x-1.7",
+                "shasum": "be7272e367995d9bfd8d2b58241ba7f84534f54e"
+            },
+            "require": {
+                "drupal/core": "^8.7.7 || ^9 || ^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.7",
+                    "datestamp": "1732276482",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "anruether",
+                    "homepage": "https://www.drupal.org/user/894458"
+                },
+                {
+                    "name": "geek-merlin",
+                    "homepage": "https://www.drupal.org/user/229048"
+                }
+            ],
+            "description": "Prepopulate entity values via tokens. Install the Token module for more tokens and Token browser access.",
+            "homepage": "https://www.drupal.org/project/epp",
+            "support": {
+                "source": "https://git.drupalcode.org/project/epp"
+            }
+        },
+        {
             "name": "drupal/field_group",
             "version": "3.6.0",
             "source": {
@@ -3777,6 +3825,74 @@
             }
         },
         {
+            "name": "drupal/prepopulate",
+            "version": "2.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/prepopulate.git",
+                "reference": "8.x-2.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/prepopulate-8.x-2.5.zip",
+                "reference": "8.x-2.5",
+                "shasum": "9efbac5cba063c79b0cfc4f82bcd87a31e0b123d"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9 || ^10 || ^11"
+            },
+            "require-dev": {
+                "drupal/inline_entity_form": "^3.0@rc",
+                "drupal/og": "^1.x-dev"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-2.5",
+                    "datestamp": "1732903418",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Heddn",
+                    "homepage": "https://www.drupal.org/u/heddn",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Jbrauer",
+                    "homepage": "https://www.drupal.org/u/jbrauer",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Eafarris",
+                    "homepage": "https://www.drupal.org/u/eafarris",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "FF1",
+                    "homepage": "https://www.drupal.org/u/ff1",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Allows form elements to be prepopulated from the URL.",
+            "homepage": "https://www.drupal.org/project/prepopulate",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/prepopulate",
+                "issues": "https://www.drupal.org/project/issues/prepopulate"
+            }
+        },
+        {
             "name": "drupal/push_framework",
             "version": "2.3.4",
             "source": {
@@ -3833,6 +3949,51 @@
             ],
             "support": {
                 "source": "https://git.drupalcode.org/project/push_framework"
+            }
+        },
+        {
+            "name": "drupal/readonly_field_widget",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/readonly_field_widget.git",
+                "reference": "8.x-1.6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/readonly_field_widget-8.x-1.6.zip",
+                "reference": "8.x-1.6",
+                "shasum": "595c7b27ddbf535594d9a4e2d8fb206dd50e2a63"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9 || ^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.6",
+                    "datestamp": "1726986724",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "thtas",
+                    "homepage": "https://www.drupal.org/user/287467"
+                }
+            ],
+            "description": "Provides a field widget which can display the field formatter version of a field on the edit form.",
+            "homepage": "https://www.drupal.org/project/readonly_field_widget",
+            "support": {
+                "source": "https://git.drupalcode.org/project/readonly_field_widget",
+                "issues": "https://www.drupal.org/project/issues/readonly_field_widget"
             }
         },
         {

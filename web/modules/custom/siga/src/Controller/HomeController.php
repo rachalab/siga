@@ -126,6 +126,7 @@ private function getProgramsAndCallsWithProjects() {
             $program_node = Node::load($program_id);
             $programs[$program_id] = [
                 'label' => $program_node ? $program_node->label() : t('Sin programa'),
+                'form' => $program_node->get("field_form")->isEmpty ? null : $program_node->get("field_form")->entity->createFileUrl(),
                 'calls' => [],
             ];
         }
@@ -149,7 +150,8 @@ private function getProgramsAndCallsWithProjects() {
 
         $programs[$program_id]['calls'][] = [
             'label' => $call->label(),
-            'description' => $project->body(),
+            'description' => $call->get('body')->value,
+            'add' => '/crear/proyecto?edit[field_p_call][widget][0][target_id]='.$call->id(),
             'projects' => $projects,
         ];
     }

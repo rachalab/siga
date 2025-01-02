@@ -1,0 +1,9 @@
+name: 'Workflow Field Rules'
+type: module
+description: 'Permite definir reglas para que los campos sean visibles y/o obligatorios en estados específicos del Workflow.'
+core_version_requirement: ^10
+package: Custom
+dependencies:
+  - drupal:workflow
+  - drupal:field
+  - drupal:node

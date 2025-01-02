@@ -1,0 +1,388 @@
+<?php
+
+/**
+ * @file
+ * Provides validation for fields based on Workflow states.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\workflow\Entity\Workflow;
+use Drupal\workflow\Entity\WorkflowState;
+use Drupal\node\Entity\Node;
+use Drupal\Core\Messenger\MessengerInterface;
+
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\field\Entity\FieldConfig;
+
+
+
+
+
+/**
+ * Validación personalizada para el formulario de edición de nodos.
+ */
+function workflow_field_rules_node_form_validate(array &$form, FormStateInterface $form_state) {
+
+    // Obtener el valor del estado del Workflow desde el formulario.
+    $workflow_transition = $form_state->getTriggeringElement();;
+    if(isset($workflow_transition['#workflow']))
+    {
+      $workflow_state_sid = $workflow_transition['#workflow']['to_sid'];
+      
+      $workflow_transition_label = ucfirst($workflow_transition['#value']);
+
+
+    // $workflow_state= $form_state->getValue('_workflow_transition')->getToState()->id();
+      if ($workflow_state_sid) {
+        // Obtener el tipo de contenido desde el formulario.
+        $node_type = $form_state->getFormObject()->getEntity()->bundle();
+
+        // Cargar definiciones de campos para el bundle del nodo.
+        $field_definitions = \Drupal::service('entity_field.manager')->getFieldDefinitions('node', $node_type);
+
+        foreach ($field_definitions as $field_name => $field_definition) {
+
+          workflow_field_rules_validate_fields($field_name, null,null, null, $field_definition, $form, $form_state, $workflow_state_sid, $workflow_transition_label);
+
+        }
+      }
+    }
+  }
+
+/**
+ * Valida recursivamente los campos, incluyendo `Paragraphs`.
+ */
+function workflow_field_rules_validate_fields($field_name, $field_path, $field_breadcrumb, $field_value, $field_definition,$form,  &$form_state, $workflow_state,$workflow_transition_label) {
+
+  // Verificar que el campo sea configurable.
+  if ($field_definition instanceof FieldConfig) {
+    if(!$field_value)
+    { 
+      $field_value = $form_state->getValue($field_name);
+    }
+    // Obtener los estados requeridos configurados para este campo.
+    $required_states = $field_definition->getThirdPartySetting('workflow_field_rules', 'required_states', []);
+    if (in_array($workflow_state, $required_states, TRUE)) {      
+      // Obtener el valor del campo desde el formulario.
+      
+      // Validar si el campo está vacío.
+
+      if (workflow_field_rules_is_empty($field_value)) {
+        // Agregar un mensaje de error para el campo.
+        $field_path_error = $field_path ? $field_path."][".$field_name : $field_name;
+        $field_breadcrumb = $field_breadcrumb ? $field_breadcrumb ." > ".$field_definition->label() : $field_definition->label();
+        
+
+        $form_state->setErrorByName($field_path_error, t('El campo "%field" es obligatorio al %state.', [
+          '%field' => $field_breadcrumb,
+          '%state' => $workflow_transition_label,
+        ]));
+      }
+    }
+    if ($field_definition->getType() === 'entity_reference_revisions' && $field_definition->getSetting('target_type') === 'paragraph') 
+    {
+     
+      foreach($field_value as $delta=>$value)
+      {
+
+        
+
+        // Obtener las definiciones de campos para el tipo de Paragraph.
+        $paragraph_type = $form[$field_name]['widget'][$delta]['#paragraph_type'];
+        if(isset($value['subform']))
+        {
+          $value = $value['subform'];
+          
+        }
+        $paragraph_field_definitions = \Drupal::service('entity_field.manager')->getFieldDefinitions('paragraph', $paragraph_type);
+        foreach ($paragraph_field_definitions as $paragraph_field_name => $paragraph_field_definition) {
+          if ($paragraph_field_definition instanceof FieldConfig) {
+
+          $paragraph_field_breadcrumb = $field_breadcrumb ?  $field_breadcrumb." > ".$field_definition->label() : $field_definition->label()  ;
+          $paragraph_field_path = $field_path ?  $field_path."][".$field_name."][{$delta}][subform" :$field_name."][{$delta}][subform";
+          
+          workflow_field_rules_validate_fields($paragraph_field_name,$paragraph_field_path, $paragraph_field_breadcrumb, $field_value[$delta]['subform'][$paragraph_field_name], $paragraph_field_definition, $form[$field_name]['widget'][$delta]['subform'],$form_state, $workflow_state,$workflow_transition_label);
+
+          
+          }
+        }
+      }
+      
+    }
+
+
+  }
+
+
+}
+
+
+  
+  /**
+   * Verifica si un valor de campo está vacío.
+   *
+   * @param mixed $field_value
+   *   El valor del campo.
+   *
+   * @return bool
+   *   TRUE si el campo está vacío, FALSE en caso contrario.
+   */
+  function workflow_field_rules_is_empty($field_value) {
+    if (empty($field_value)) {
+      return TRUE;
+    }
+    
+    // Si es un array, verificar subcampos como "value", "target_id", "uri", etc.
+    if (is_array($field_value)) {
+      foreach ($field_value as $item) {
+        if (is_array($item)) {
+          // Verifica si hay al menos un valor significativo en subparámetros.
+          if (!empty($item['phone'])  || !empty($item['address'])  || !empty($item['value']) || !empty($item['target_id']) || !empty($item['uri'])) {
+            return FALSE;
+          }
+        }
+        else {
+          // Si no es un array, verifica directamente.
+          if (!empty($item)) {
+            return FALSE;
+          }
+        }
+      }
+      return TRUE;
+    }
+  
+    // Si no es array y está vacío, retorna TRUE.
+    return empty($field_value);
+  }
+/**
+ * Implements hook_form_alter().
+ */
+function workflow_field_rules_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  // Registrar el form_id en los logs para depuración.
+
+  if (($form_id === 'node_form' || strpos($form_id, 'node_') === 0) && $form_id != 'node_type_edit_form'  && $form_id != 'node_delete_multiple_confirm_form') {
+
+
+    // Obtener la entidad del formulario.
+    $node = $form_state->getFormObject()->getEntity();
+
+    $workflow_field_name = workflow_get_field_name($node);
+
+    if (!$node->get($workflow_field_name)->isEmpty()) {
+      $current_state = $node->get($workflow_field_name)->value;
+      // Obtener las definiciones de campos para el tipo de contenido del nodo.
+      $node_type = $node->bundle();
+      $field_definitions = \Drupal::service('entity_field.manager')->getFieldDefinitions('node', $node_type);
+
+      foreach ($field_definitions as $field_name => $field_definition) {
+        workflow_field_rules_process_fields($field_definition,$form[$field_name], $current_state);
+      }
+    }
+    foreach($form['actions'] as $key => $action)
+    {
+      if(isset($action['#validate']))
+      {
+        $form['actions'][$key]['#validate'][] = 'workflow_field_rules_node_form_validate';
+      }
+    }
+
+  }
+
+
+  // Verifica si el formulario es de configuración de widget de campo.
+if (strpos($form_id, 'field_config_edit_form') !== FALSE) {
+  // Verificar que el formulario tiene una entidad de campo.
+  $field_definition = $form_state->getFormObject()->getEntity();
+
+  if ($field_definition instanceof \Drupal\field\Entity\FieldConfig) {
+    // Cargar los estados del Workflow.
+    $workflows = \Drupal\workflow\Entity\Workflow::loadMultiple();
+    $options = [];
+    foreach ($workflows as $workflow_id => $workflow) {
+      foreach ($workflow->states as $state_id => $state_config) {
+        $options[$state_id] = $workflow->label() . ": " . $state_config->label();
+      }
+    }
+
+    // Obtener los valores existentes guardados en "Third Party Settings".
+    $default_visibles = $field_definition->getThirdPartySetting('workflow_field_rules', 'visible_states', []);
+
+    // Convertir los valores guardados a un formato compatible con checkboxes.
+    if (is_array($default_visibles)) {
+      $default_visibles = array_combine($default_visibles, $default_visibles);
+    }
+
+    // Obtener los valores existentes guardados en "Third Party Settings".
+    $default_requireds = $field_definition->getThirdPartySetting('workflow_field_rules', 'required_states', []);
+
+    // Convertir los valores guardados a un formato compatible con checkboxes.
+    if (is_array($default_requireds)) {
+      $default_requireds = array_combine($default_requireds, $default_requireds);
+    }
+
+    // Agregar configuración agrupada en acordeones.
+    $form['third_party_settings']['workflow_field_rules'] = [
+      '#type' => 'details',
+      '#title' => t('Workflow Field Rules'),
+      '#open' => TRUE,
+    ];
+
+    $form['third_party_settings']['workflow_field_rules']['visible_group'] = [
+      '#type' => 'details',
+      '#title' => t('Visibility'),
+      '#open' => FALSE,
+    ];
+
+    $form['third_party_settings']['workflow_field_rules']['visible_group']['visible_states'] = [
+      '#type' => 'checkboxes',
+      '#title' => t('Make this field visible for the following Workflow states'),
+      '#options' => $options,
+      '#default_value' => $default_visibles,
+    ];
+
+    $form['third_party_settings']['workflow_field_rules']['required_group'] = [
+      '#type' => 'details',
+      '#title' => t('Required'),
+      '#open' => FALSE,
+    ];
+
+    $form['third_party_settings']['workflow_field_rules']['required_group']['required_states'] = [
+      '#type' => 'checkboxes',
+      '#title' => t('Make this field required for the following Workflow states'),
+      '#options' => $options,
+      '#default_value' => $default_requireds,
+    ];
+
+    // Registrar el submit handler.
+    $form['actions']['submit']['#submit'][] = 'workflow_field_rules_field_config_edit_form_submit';
+  }
+}
+
+
+
+}
+
+
+/**
+ * Procesa recursivamente los widgets de los campos, incluyendo `Paragraphs`.
+ */
+function workflow_field_rules_process_fields($field_definition, &$field, $current_state) {
+
+
+  if($field_definition instanceof FieldConfig)
+  {
+    $required_states = $field_definition->getThirdPartySetting('workflow_field_rules', 'required_states', []);
+    $visible_states = $field_definition->getThirdPartySetting('workflow_field_rules', 'visible_states', []);
+
+    if (in_array($current_state, $required_states, TRUE)) {
+      $is_required = TRUE;
+    }
+    $is_visible = TRUE;
+    if (count($visible_states))
+    {
+      $is_visible = FALSE;
+      if(in_array($current_state, $visible_states, TRUE)) {
+        $is_visible = TRUE;
+      }
+    }
+    if($is_visible)
+    {
+      foreach ($field['widget'] as $key => &$widget) {
+
+        if (substr($key,0,1)!="#" && is_array($widget)) {
+
+          if($is_required)
+          {
+            // Marcar el widget como requerido si aplica.
+            if (isset($widget['#type']) || isset($widget['#required'])) {
+              $widget['#required'] = TRUE;
+            }
+
+            // Si existe un subcampo llamado 'value', marcarlo como requerido.
+            if ($is_required && isset($widget['value']) && is_array($widget['value'])) {
+              $widget['value']['#required'] = TRUE;
+            }
+
+            if ($is_required &&  isset($widget['uri']) && is_array($widget['uri'])) {
+              $widget['uri']['#required'] = TRUE;
+            }
+          }
+          // Si el widget tiene un tipo de párrafo definido, procesar sus campos.
+          if (isset($widget['#paragraph_type'])) 
+          {
+            $paragraph_type = $widget['#paragraph_type'];
+            // Obtener las definiciones de campos para el bundle del Paragraph.
+            $paragraph_field_definitions = \Drupal::service('entity_field.manager')->getFieldDefinitions('paragraph', $paragraph_type);
+            foreach ($paragraph_field_definitions as $paragraph_field_name => $paragraph_field_definition) 
+            {
+              workflow_field_rules_process_fields($paragraph_field_definition, $widget['subform'][$paragraph_field_name], $current_state);
+                  
+            }
+          }
+          
+        }
+      }
+    }else{
+      $field['#access']=FALSE;
+    }
+  }
+}
+/**
+ * Implements hook_field_widget_settings_validate().
+ */
+function workflow_field_rules_field_widget_settings_validate(array &$form, FormStateInterface $form_state, array $context) {
+  // Validar los valores de configuración, si es necesario.
+  $values = $form_state->getValue(['third_party_settings', 'workflow_field_rules', 'required_states']);
+  if (!is_array($values)) {
+    $form_state->setErrorByName('required_states', t('Invalid configuration for Workflow required states.'));
+  }
+  $values = $form_state->getValue(['third_party_settings', 'workflow_field_rules', 'visible_states']);
+  if (!is_array($values)) {
+    $form_state->setErrorByName('required_states', t('Invalid configuration for Workflow visible states.'));
+  }
+}
+
+/**
+ * Implements hook_field_widget_settings_submit().
+ */
+function workflow_field_rules_field_config_edit_form_submit(array &$form, FormStateInterface $form_state) {
+   
+    // Obtener la entidad del campo.
+    $field_definition = $form_state->getFormObject()->getEntity();
+  
+  
+
+    // Obtener los valores seleccionados del formulario.
+    $requireds = $form_state->getValue(['third_party_settings', 'workflow_field_rules', 'required_group', 'required_states']);
+  
+    if (is_array($requireds)) {
+      // Filtrar valores vacíos o no seleccionados.
+      $requireds = array_filter($requireds, function ($value) {
+        return $value !== 0 && $value !== NULL;
+      });
+    }
+  
+    // Guardar los valores en la configuración de terceros del campo.
+    $field_definition->setThirdPartySetting('workflow_field_rules', 'required_states', $requireds);
+  
+
+    // Obtener los valores seleccionados del formulario.
+    $visibles = $form_state->getValue(['third_party_settings', 'workflow_field_rules', 'visible_group','visible_states']);
+  
+    if (is_array($visibles)) {
+      // Filtrar valores vacíos o no seleccionados.
+      $visibles = array_filter($visibles, function ($value) {
+        return $value !== 0 && $value !== NULL;
+      });
+    }
+  
+    // Guardar los valores en la configuración de terceros del campo.
+    $field_definition->setThirdPartySetting('workflow_field_rules', 'visible_states', $visibles);
+  
+
+
+    // Guardar la entidad del campo.
+    $field_definition->save();
+  }
+
+  

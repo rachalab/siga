@@ -34,7 +34,7 @@
               {% for call in program.calls %}
                 <div class="call-card">
                   <h4>Convocatoria: {{ call.label }}</h4>
-                  {{ call.description }}
+                  {{ call.description|raw }}
                   {% if call.projects is not empty %}
                     <div class="projects-section">
                       <h5>Proyectos:</h5>
@@ -47,6 +47,9 @@
                     </div>
                   {% else %}
                     <p>No hay proyectos asociados a esta convocatoria.</p>
+                  <a href="{{ call.add }}">Presentar proyecto</a>
+
+                  <a href="{{ program.form }}">Descargar formulario</a>
                   {% endif %}
                 </div>
               {% endfor %}
